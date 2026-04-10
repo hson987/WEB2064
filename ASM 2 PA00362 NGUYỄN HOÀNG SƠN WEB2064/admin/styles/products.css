@@ -1,0 +1,191 @@
+/* --- KHUNG CHÍNH --- */
+.admin-products {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    padding: 25px 30px 50px;
+}
+
+.admin-products h2 {
+    font-size: 24px;
+    margin-bottom: 25px;
+    color: #8B4513;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- FORM THÊM SẢN PHẨM --- */
+#product-form,
+#variant-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+    background: #f9fafc;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e4ef;
+}
+
+#product-form input,
+#product-form select,
+#product-form textarea,
+#variant-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+}
+
+#product-form textarea {
+    grid-column: 1 / -1;
+    resize: vertical;
+    min-height: 80px;
+}
+
+#product-form button,
+#variant-form button {
+    background: #8B4513;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: background 0.25s;
+}
+
+#product-form button:hover,
+#variant-form button:hover {
+    background: #8B4513;
+}
+
+/* --- BẢNG DANH SÁCH SẢN PHẨM --- */
+.product-table,
+.variant-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 15px;
+}
+
+.product-table th,
+.product-table td,
+.variant-table th,
+.variant-table td {
+    border: 1px solid #e0e4ef;
+    padding: 10px 12px;
+    text-align: center;
+}
+
+.product-table th,
+.variant-table th {
+    background: #8B4513;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.product-table tr:nth-child(even),
+.variant-table tr:nth-child(even) {
+    background: #f8f9fd;
+}
+
+.product-table img,
+.variant-table img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+/* --- KHU VỰC BIẾN THỂ --- */
+#variant-section {
+    margin-top: 40px;
+    background: #f1f5fb;
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid #d0d7e2;
+}
+
+#variant-section h3 {
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+#btn-close-variants {
+    background: #e63946;
+    color: #fff;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
+#btn-close-variants:hover {
+    background: #c92a33;
+}
+
+/* --- NÚT HÀNH ĐỘNG --- */
+/* ==================== BUTTON CHUNG ==================== */
+.btn {
+    border: none;
+    color: #fff;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.2s ease;
+}
+
+/* ==================== TỪNG LOẠI ==================== */
+.btn-edit {
+    background-color: #28a745; /* xanh lá */
+}
+.btn-edit:hover {
+    background-color: #218838;
+}
+
+.btn-delete {
+    background-color: #dc3545; /* đỏ */
+}
+.btn-delete:hover {
+    background-color: #c82333;
+}
+
+.btn-variant {
+    background-color: #007bff; /* xanh dương */
+}
+.btn-variant:hover {
+    background-color: #0069d9;
+}
+
+/* ==================== TABLE ==================== */
+.product-table td button {
+    min-width: 70px;
+}
+
+/* (tuỳ chọn) canh giữa nội dung cột hành động */
+.product-table td:last-child {
+    text-align: center;
+}
+
+
+
+button.action-btn.edit { background: #2a9d8f; }
+button.action-btn.delete { background: #e63946; }
+button.action-btn.variant { background: #457b9d; }
+
+button.action-btn:hover {
+    opacity: 0.9;
+}
+
+/* --- ẨN HIỆN BIẾN THỂ --- */
+.hidden {
+    display: none;
+}

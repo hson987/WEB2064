@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Nhân Viên - Admin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/users.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-mug-hot highlight-icon"></i>
+                <h1>Admin - Susan Coffee & Tea</h1>
+            </div>
+
+            <nav>
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="products.html">
+                    <i class="fas fa-box"></i>
+                    <span>Sản phẩm</span>
+                </a>
+                <a href="categories.html">
+                    <i class="fas fa-tags"></i>
+                    <span>Danh mục</span>
+                </a>
+                <a href="orders.html">
+                    <i class="fas fa-receipt"></i>
+                    <span>Đơn hàng</span>
+                </a>
+                <a href="customers.html">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Khách hàng</span>
+                </a>
+                <a href="users.html" class="active">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Nhân viên</span>
+                </a>
+                <a href="login.html" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="employee-main">
+        <div class="page-header">
+            <h2><i class="fas fa-id-badge"></i> DANH SÁCH NHÂN VIÊN</h2>
+        </div>
+
+        <div class="data-section">
+            <div class="data-toolbar">
+                <div class="export-actions">
+                    <span class="export-label">Export:</span>
+                    <button class="btn-export excel" onclick="mockExport('Excel')"><i class="fas fa-file-excel"></i> Excel</button>
+                    <button class="btn-export pdf" onclick="mockExport('PDF')"><i class="fas fa-file-pdf"></i> PDF</button>
+                </div>
+                
+                <div class="search-box">
+                    <label>Search:</label>
+                    <input type="text" id="search-input" placeholder="Tìm kiếm nhân viên...">
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="employee-table">
+                    <thead>
+                        <tr>
+                            <th>Số thứ tự</th>
+                            <th>Mã nhân viên</th>
+                            <th>Tên nhân viên</th>
+                            <th>Chức vụ</th>
+                            <th>Phòng ban</th>
+                            <th>Tình trạng</th>
+                            <th>Tác vụ</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employee-list">
+                        <!-- Data injected via JS -->
+                    </tbody>
+                </table>
+                <div id="no-data" class="no-data-msg" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <p>Không tìm thấy nhân viên nào</p>
+                </div>
+            </div>
+            
+            <div class="pagination-container">
+                <div class="pagination-info" id="pagination-info">
+                    Showing 1 to X of Y entries
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" class="btn-page">Previous</button>
+                    <div id="page-numbers" class="page-numbers">
+                        <!-- Page numbers injected via JS -->
+                    </div>
+                    <button id="next-page" class="btn-page">Next</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Add Employee Button for utility -->
+        <button class="btn-add-employee" onclick="openEmployeeModal()">
+            <i class="fas fa-plus"></i> Thêm Nhân Viên Mới
+        </button>
+    </main>
+
+    <!-- Modal Form Thêm/Sửa -->
+    <div id="employee-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="modal-title"><i class="fas fa-user-plus"></i> Thêm Nhân Viên</h3>
+                <button class="close-btn" onclick="closeEmployeeModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="employee-form" class="premium-form">
+                <input type="hidden" id="employee-id">
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Họ và Tên</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="employee-name" placeholder="Tên nhân viên" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="employee-email" placeholder="email@congty.vn" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Phòng Ban</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-building"></i>
+                            <select id="employee-department">
+                                <option value="Kinh doanh">Kinh doanh</option>
+                                <option value="Kế toán">Kế toán</option>
+                                <option value="Nhân sự">Nhân sự</option>
+                                <option value="Kỹ thuật">Kỹ thuật</option>
+                                <option value="Marketing">Marketing</option>
+                                <option value="Ban Giám Đốc">Ban Giám Đốc</option>
+                                <option value="Hành chính">Hành chính</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Chức Vụ</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-briefcase"></i>
+                            <input type="text" id="employee-position" placeholder="Vd: Trưởng Phòng">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Tình Trạng</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-toggle-on"></i>
+                            <select id="employee-status">
+                                <option value="active">Đang làm việc</option>
+                                <option value="inactive">Đã nghỉ việc</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Mật Khẩu Đăng Nhập</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-lock"></i>
+                        <input type="text" id="employee-password" value="123" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeEmployeeModal()">Hủy</button>
+                    <button type="submit" class="btn-primary"><i class="fas fa-save"></i> Lưu Thông Tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Susan Coffee & Tea - Trang quản trị cao cấp</p>
+            <p class="made-with-love">
+                Made with <i class="fas fa-heart pulse"></i> & 
+                <i class="fas fa-coffee"></i>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/users.js"></script>
+</body>
+</html>

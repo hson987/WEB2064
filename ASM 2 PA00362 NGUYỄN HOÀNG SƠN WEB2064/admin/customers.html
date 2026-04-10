@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý khách hàng - Premium Admin</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/customers.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-mug-hot highlight-icon"></i>
+                <h1>Admin - Susan Coffee & Tea</h1>
+            </div>
+
+            <nav>
+                <a href="index.html">
+                    <i class="fas fa-home"></i>
+                    <span>Trang chủ</span>
+                </a>
+                <a href="products.html">
+                    <i class="fas fa-box"></i>
+                    <span>Sản phẩm</span>
+                </a>
+                <a href="categories.html">
+                    <i class="fas fa-tags"></i>
+                    <span>Danh mục</span>
+                </a>
+                <a href="orders.html">
+                    <i class="fas fa-receipt"></i>
+                    <span>Đơn hàng</span>
+                </a>
+                <a href="customers.html" class="active">
+                    <i class="fas fa-user-friends"></i>
+                    <span>Khách hàng</span>
+                </a>
+                <a href="users.html">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Nhân viên</span>
+                </a>
+                <a href="login.html" id="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Đăng xuất</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="customer-main">
+        <div class="page-header">
+            <h2><i class="fas fa-users"></i> Quản lý Khách Hàng</h2>
+            <div class="header-actions">
+                <button class="btn-primary" onclick="openCustomerModal()"><i class="fas fa-plus"></i> Thêm mới khách hàng</button>
+            </div>
+        </div>
+
+        <!-- Dashboard Cards -->
+        <div class="dashboard-cards">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(52, 152, 219, 0.1); color: #3498db;">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Tổng Khách Hàng</h3>
+                    <p id="total-customers" class="stat-value">0</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(46, 204, 113, 0.1); color: #2ecc71;">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Tổng Doanh Thu</h3>
+                    <p id="total-spent" class="stat-value">0 ₫</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon" style="background: rgba(230, 126, 34, 0.1); color: #e67e22;">
+                    <i class="fas fa-shopping-basket"></i>
+                </div>
+                <div class="stat-details">
+                    <h3>Lượt Mua</h3>
+                    <p id="total-orders" class="stat-value">0</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Area -->
+        <div class="data-section">
+            <div class="data-toolbar">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-input" placeholder="Tìm kiếm theo Tên, SĐT, hoặc Email...">
+                </div>
+                <div class="filter-box">
+                    <select id="sort-select">
+                        <option value="newest">Mới nhất</option>
+                        <option value="name_asc">Tên (A-Z)</option>
+                        <option value="name_desc">Tên (Z-A)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="premium-table">
+                    <thead>
+                        <tr>
+                            <th>Khách Hàng</th>
+                            <th>Liên Hệ</th>
+                            <th>Địa Chỉ</th>
+                            <th>Hành Động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customer-list">
+                        <!-- Data injected via JS -->
+                    </tbody>
+                </table>
+                <div id="no-data" class="no-data-msg" style="display: none;">
+                    <i class="fas fa-inbox"></i>
+                    <p>Không tìm thấy khách hàng nào</p>
+                </div>
+            </div>
+            
+            <div class="pagination">
+                <button id="prev-page" class="btn-page"><i class="fas fa-chevron-left"></i> Trước</button>
+                <div id="page-numbers" class="page-numbers">
+                    <!-- Page numbers injected via JS -->
+                </div>
+                <button id="next-page" class="btn-page">Sau <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal Form Thêm/Sửa -->
+    <div id="customer-modal" class="modal">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h3 id="modal-title"><i class="fas fa-user-edit"></i> Thêm Khách Hàng</h3>
+                <button class="close-btn" onclick="closeCustomerModal()"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="customer-form" class="premium-form">
+                <input type="hidden" id="customer-id">
+                
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Họ và Tên</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-user"></i>
+                            <input type="text" id="customer-name" placeholder="Vd: Nguyễn Văn A" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="customer-email" placeholder="Vd: email@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-phone"></i>
+                            <input type="text" id="customer-phone" placeholder="Vd: 0987654321">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group-row">
+                    <div class="form-group">
+                        <label>Mật Khẩu (Mặc định)</label>
+                        <div class="input-wrapper">
+                            <i class="fas fa-lock"></i>
+                            <input type="text" id="customer-password" value="password123" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Địa Chỉ</label>
+                    <div class="input-wrapper">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <input type="text" id="customer-address" placeholder="Nhập địa chỉ đầy đủ...">
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-cancel" onclick="closeCustomerModal()">Hủy Bỏ</button>
+                    <button type="submit" class="btn-primary" id="btn-save"><i class="fas fa-save"></i> Lưu Thông Tin</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 Susan Coffee & Tea - Trang quản trị cao cấp</p>
+            <p class="made-with-love">
+                Made with <i class="fas fa-heart pulse"></i> & 
+                <i class="fas fa-coffee"></i>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/customers.js"></script>
+</body>
+</html>

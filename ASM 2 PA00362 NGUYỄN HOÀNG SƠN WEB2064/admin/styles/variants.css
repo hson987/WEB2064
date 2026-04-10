@@ -1,0 +1,126 @@
+/* ===== KHUNG CHUNG ===== */
+.variants {
+    max-width: 900px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 12px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+}
+
+.variants h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+}
+
+#variant-product-name {
+    color: #8B4513;
+    font-weight: 600;
+}
+
+/* ===== NÚT QUAY LẠI ===== */
+#btn-back {
+    background: #eee;
+    color: #333;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-bottom: 20px;
+}
+#btn-back:hover {
+    background: #ddd;
+}
+
+/* ===== FORM ===== */
+#variant-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+#variant-form input[type="text"],
+#variant-form input[type="number"],
+#variant-form input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+#variant-form button[type="submit"] {
+    background-color: #8B4513;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background 0.3s;
+}
+
+#variant-form button[type="submit"]:hover {
+    background-color: #8B4513;
+}
+
+/* ===== BẢNG BIẾN THỂ ===== */
+.variant-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.variant-table thead {
+    background: #f4f4f4;
+}
+
+.variant-table th, 
+.variant-table td {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    text-align: center;
+    font-size: 14px;
+}
+
+.variant-table tr:hover {
+    background: #fafafa;
+}
+
+/* ===== NÚT HÀNH ĐỘNG ===== */
+.btn {
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.btn-edit {
+    background-color: #2ecc71;
+    color: white;
+}
+.btn-edit:hover {
+    background-color: #27ae60;
+}
+
+.btn-delete {
+    background-color: #e74c3c;
+    color: white;
+}
+.btn-delete:hover {
+    background-color: #c0392b;
+}
+
+/* ===== HÌNH ẢNH TRONG BẢNG ===== */
+.variant-table img {
+    border-radius: 6px;
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+}
